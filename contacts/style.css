@@ -73,8 +73,8 @@ main {
 form {
     width: 300px;
     padding-right: 1rem;
-    position: absolute;
-    left: -300px;
+    position: fixed;
+    left: 12%;
 }
 
 .title-form {
@@ -99,6 +99,54 @@ form button {
     background-color: #58D68D;
     color: #FFFFFF;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.result {
+    margin-bottom: 2rem;
+}
+
+.contact-item {
+    margin-bottom: .5rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 6px 6px hsl(0deg 0% 0% / 0.3);
+    border-radius: 5px;
+}
+
+.text p {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.text button {
+    color: #FFFFFF;
+    background-color: #58D68D;
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    border-color: #58D68D;
+    cursor: pointer;
+}
+
+.btn-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.btn-block svg{
+    width: 25px;
+    height: 25px;
+    fill: #512E5F;
+}
+
+.btn-block button {
+    margin: 2rem 0;
+    background-color: inherit;
+    border: none;
     cursor: pointer;
 }
 
