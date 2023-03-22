@@ -4,9 +4,87 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Книга контактов</title>
+    <title>Contact book</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <header>
+        <div class="container header">
+            <h1>Contact book</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="filter">
+                <div class="sort">
+                    <p class="title-sort">Sort contacts:</p>
+                    <div>
+                        <p>от A-Z</p> 
+                        <span>
+                            <svg class="icon">
+                                <use xlink:href='./assets/icon/sprite.svg#check-mark'></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <div>
+                        <p>от Z-A </p>
+                        <span>
+                            <svg class="icon">
+                                <use xlink:href='./assets/icon/sprite.svg#check-mark'></use>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <form>
+                    <p class="title-form">Search</p>
+                    <label for="companyName">
+                        Company Name:
+                        <input type="text" id="companyName" name="companyName" placeholder="Company Name">
+                        <ul class="company-name"></ul>
+                    </label>
+                    <label for="name">
+                        User Name:
+                        <input type="text" id="name" name="name" placeholder="User Name">
+                        <ul class="name"></ul>
+                    </label>
+                    <label for="email">
+                        Email:
+                        <input type="text" id="email" name="email" placeholder="Email">
+                        <ul class="email"></ul>
+                    </label>
+                    <label for="website">
+                        Website:
+                        <input type="text" id="website" name="website" placeholder="Website">
+                        <ul class="website"></ul>
+                    </label>
+                    <button type="submit">submit</button>
+                </form>
+            </section>
+            <section class="result"></section>
+        </div>
+    </main>
+    <footer>
+        <div class="container footer">
+            <p>Алымбаева Асель</p>
+            <div>
+                <a href="https://github.com/alimbaeva" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon">
+                        <use xlink:href='./assets/icon/sprite.svg#github'></use>
+                    </svg>
+                </a>
+                <a href="https://github.com/alimbaeva" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon">
+                        <use xlink:href='./assets/icon/sprite.svg#CV'></use>
+                    </svg>
+                </a>
+                <a href="https://github.com/alimbaeva" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon">
+                        <use xlink:href='./assets/icon/sprite.svg#folder'></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
