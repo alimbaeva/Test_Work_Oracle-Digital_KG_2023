@@ -212,6 +212,7 @@ footer {
 }
 
 .modal-contact .item,
+.modal-contact #map,
 .modal-contact .change-form ,
 .modal-contact .contact-item {
     width: 30%;
@@ -224,8 +225,13 @@ footer {
     border-radius: 5px;
 }
 
-.modal-contact .contact-item {
+.modal-contact .contact-item,
+.modal-contact #map  {
     width: 50%;
+}
+
+.modal-contact #map  {
+    height: 50%;
 }
 
 .modal-contact .change-form  {

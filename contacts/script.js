@@ -46,7 +46,8 @@
         constructor () {
             this.data = JSON.parse(localStorage.getItem('ContactObject'));
             this.rezultBlock = document.querySelector('.result');
-            this.modalDiv = document.querySelector('.modal-contact');
+            this.modalDiv = document.querySelector('.for-contact');
+            this.forMap = document.querySelector('.for-map');
         }
 
         cardContact(el) {  // структура карточки контакта
@@ -67,8 +68,8 @@
                                     <use xlink:href='./assets/icon/sprite.svg#pen'></use>
                                 </svg>
                             </button>
-                            <button>
-                                <svg class="">
+                            <button id="map-${el.id - 1}-btn">
+                                <svg id="map-${el.id - 1}-svg">
                                     <use xlink:href='./assets/icon/sprite.svg#marker'></use>
                                 </svg>
                             </button>
@@ -88,6 +89,7 @@
                     const idArray = e.target.id.split('-');
                     if (idArray[0] === 'more') this.modalInfo(idArray[1]);
                     if (idArray[0] === 'change') this.changeContact(idArray[1]);
+                    if (idArray[0] === 'map') this.showMap(this.data[idArray[1]].address.geo.lat, this.data[idArray[1]].address.geo.lng);
                 });
             }
         }
@@ -249,15 +251,42 @@
                     <b>About company:</b>
                     <p>${contact.company.bs}, ${contact.company.catchPhrase}</p>
                 </div>
-                <div class="map">
-                    <p>Карта</p>
-                </div>
             </div>
             `;
 
             this.modalDiv.addEventListener('click', (e) =>  {
                 const targetEl = e.target.parentNode;
                 this.hidenModal(targetEl);
+            });
+        }
+
+        showMap(lat, lng) { // показывает на карте (lat, lng - это долгота и широта)
+            console.log(lat, lng)
+            this.forMap.classList.remove('hiden');
+            this.forMap.innerHTML = `
+                <div id='map'></div>
+            `;
+
+            L.mapbox.accessToken = 'pk.eyJ1IjoibGFkeTFzdCIsImEiOiJjbGV5N2V3ZjcwMjhuM3hzMnZkMjR0b3Z3In0.6214Q3EwVqdFQqy4A6PxEw';
+            const map = L.mapbox.map('map')
+                .setView([lng, lat], 3)
+                .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+            
+            L.marker([lng, lat], {
+                icon: L.mapbox.marker.icon({
+                    'marker-size': 'large',
+                    'marker-color': '#512E5F'
+                })
+            }).addTo(map);
+
+            this.forMap.addEventListener('click', (e) =>  {
+                const targetEl = e.target;
+                if (targetEl.id === 'map') {
+                    return;
+                } else {
+                    this.forMap.innerHTML = '';
+                    this.forMap.classList.add('hiden');
+                }
             });
         }
 
