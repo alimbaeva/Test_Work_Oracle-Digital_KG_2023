@@ -321,6 +321,12 @@ footer {
     form input {
         width: 95%;
     }
+
+    .modal-contact .item,
+    .modal-contact .change-form ,
+    .modal-contact .contact-item {
+        width: 60%;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -358,5 +364,19 @@ footer {
 
     .filter ul {
         padding: 0;
+    }
+
+    
+    .modal-contact .item,
+    .modal-contact #map,
+    .modal-contact .change-form ,
+    .modal-contact .contact-item {
+        width: 80%;
+        padding: .5rem;
+    }
+
+    .modal-contact p {
+        font-size: 1rem;
+        margin-bottom: .5rem;
     }
 }
