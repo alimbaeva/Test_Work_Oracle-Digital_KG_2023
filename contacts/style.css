@@ -212,7 +212,7 @@ footer {
 }
 
 .modal-contact .item,
-.modal-contact form,
+.modal-contact .change-form ,
 .modal-contact .contact-item {
     width: 30%;
     padding: 1.5rem;
@@ -228,11 +228,129 @@ footer {
     width: 50%;
 }
 
-.modal-contact form {
+.modal-contact .change-form  {
     color: #000000;
 }
 
 .modal-contact p {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 2090px) {
+    form {
+        left: 5%;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+
+    .filter {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .title-form {
+        font-size: 1rem;
+    }
+
+    form {
+        width: 100%;
+        margin-top: 1rem;
+        position: relative;
+        left: 0;
+    }
+
+    form div {
+        display: flex;
+    }
+
+    form label {
+        font-size: 1rem;
+        position: relative;
+    }
+
+    
+    form input {
+        width: 90%;
+        padding: 3px;
+        margin: 0 0;
+        font-size: 1rem;
+    }
+
+    .filter ul {
+        margin: 0;
+        padding: .5rem;
+        position: absolute;
+        z-index: 1;
+        background-color: #FFFFFF;
+    }
+
+    form button {
+        width: 20%;
+        height: 25px;
+        margin: 1rem 0 0 78%;
+        font-size: .8rem;
+    }
+
+    
+    .sort {
+        margin: 1rem 0;
+    }
+
+    .title-sort {
+        font-size: 1.2rem;
+    }
+
+    .sort p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+
+    form input {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .text p {
+        font-size: .8rem;
+        margin-bottom: .8rem;
+    }
+    
+    .text button {
+        padding: .2rem .4rem;
+    }
+
+    .btn-block svg{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    form div {
+        flex-wrap: wrap;
+    }
+
+    form label {
+        width: 100%;
+    }
+
+    
+    form input {
+        width: 100%;
+        padding: 3px;
+        margin-bottom: .8rem;
+        font-size: .8rem;
+    }
+
+    .filter ul {
+        padding: 0;
+    }
 }

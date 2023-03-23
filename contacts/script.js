@@ -96,7 +96,7 @@
             const contact =  this.data[id];
             this.modalDiv.classList.remove('hiden');
             this.modalDiv.innerHTML = `
-            <form class="change-contact">
+            <form class="change-form change-contact">
                 <label class="change-contact" for="company-name">
                     Company name:
                     <input type="text" id="company-name" name="company-name">
