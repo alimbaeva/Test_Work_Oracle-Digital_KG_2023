@@ -40,6 +40,23 @@ main {
     position: relative;
 }
 
+.filter ul {
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.filter li {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.filter li p {
+    margin-right: 5px;
+}
+
 .sort {
     margin: 2rem 0;
     display: flex;
@@ -107,6 +124,7 @@ form button {
 }
 
 .result {
+    min-height: 700px;
     margin-bottom: 2rem;
 }
 
@@ -194,7 +212,8 @@ footer {
 }
 
 .modal-contact .item,
-.modal-contact form {
+.modal-contact form,
+.modal-contact .contact-item {
     width: 30%;
     padding: 1.5rem;
     background-color: #FFFFFF;
@@ -204,6 +223,11 @@ footer {
     transform: translate(-50%, -50%);
     border-radius: 5px;
 }
+
+.modal-contact .contact-item {
+    width: 50%;
+}
+
 .modal-contact form {
     color: #000000;
 }

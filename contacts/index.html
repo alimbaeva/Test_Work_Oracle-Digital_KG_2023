@@ -21,7 +21,13 @@
                     <label for="companyName">
                         Company Name:
                         <input type="text" id="companyName" name="companyName" placeholder="Company Name">
-                        <ul class="company-name"></ul>
+                        <ul class="company-name">
+                            <!-- <li id="filter-${el.id - 1}">
+                                <p>${el.company.name}</p>
+                                <p>${el.website}</p>
+                                <p>${el.phone}</p>
+                            </li> -->
+                        </ul>
                     </label>
                     <label for="name">
                         User Name:
@@ -38,7 +44,7 @@
                         <input type="text" id="website-1" name="website-1" placeholder="Website">
                         <ul class="website"></ul>
                     </label>
-                    <button type="submit">search</button>
+                    <button id="search-btn" type="submit">search</button>
                 </form>
             </section>
             <section class="result">

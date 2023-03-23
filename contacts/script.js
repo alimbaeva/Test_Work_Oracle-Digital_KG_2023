@@ -49,16 +49,15 @@
             this.modalDiv = document.querySelector('.modal-contact');
         }
 
-        showContacts() { // выводит весь список контактов
-            if (this.data) {
-                this.data.map((el) => {
-                    this.rezultBlock.innerHTML += `
+        cardContact(el) {  // структура карточки контакта
+            return (
+                `
                     <div class="contact-item" data-id="${el.id}">
                         <div class="text">
                             <p>Company name: <b>${el.company.name}</b></p>
-                            <p>Name: <b>${el.name}</b></p>
+                            <p>Name: <b>${el.username}</b></p>
                             <p>Website: <b>${el.website}</b></p>
-                            <p>City: <b>${el.website}</b></p>
+                            <p>Email: <b>${el.email}</b></p>
                             <p>Phone: <b>${el.phone}</b></p>
                             <button id="more-${el.id - 1}">To learn more</button>
                         </div>
@@ -75,7 +74,14 @@
                             </button>
                         </div>
                     </div>
-                    `;
+                    `
+            )
+        }
+
+        showContacts() { // выводит весь список контактов
+            if (this.data) {
+                this.data.map((el) => {
+                    this.rezultBlock.innerHTML += this.cardContact(el);
                 });
 
                 this.rezultBlock.addEventListener('click', (e) => {
@@ -300,6 +306,11 @@
             const choseSortZ_A = document.querySelector('#z_a .icon');
             const choseSortA_Z = document.querySelector('#a_z .icon');
 
+            const companyName = document.querySelector('#companyName');
+            const name = document.querySelector('#name');
+            const email_1 = document.querySelector('#email-1');
+            const website_1 = document.querySelector('#website-1');
+
             // сортировка от A до Z
             a_z.addEventListener('click', () => {
                 this.sortAlphabet(choseSortA_Z, choseSortZ_A, 'choseSortA_Z', 'choseSortZ_A');
@@ -309,6 +320,97 @@
             z_a.addEventListener('click', () => {
                 this.sortAlphabet(choseSortZ_A, choseSortA_Z, 'choseSortZ_A', 'choseSortA_Z');
             });
+
+             // поиск по имени компании
+            companyName.addEventListener('input', (e) => {
+                const dataSearch = this.data.filter(item => {
+                    if (item.company.name.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1) {
+                        return item;
+                    }
+                });
+                e.target.value.length 
+                    ? this.filterInput(dataSearch, companyName.nextSibling.nextSibling, companyName, name, email_1, website_1) 
+                    : this.filterInput([], companyName.nextSibling.nextSibling, companyName, name, email_1, website_1);
+            });
+
+            // поиск по имени человека
+            name.addEventListener('input', (e) => {
+                const dataSearch = this.data.filter(item => {
+                    if (item.username.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1) {
+                        return item;
+                    }
+                });
+                e.target.value.length 
+                    ? this.filterInput(dataSearch, name.nextSibling.nextSibling, companyName, name, email_1, website_1) 
+                    : this.filterInput([], name.nextSibling.nextSibling, companyName, name, email_1, website_1);
+            });
+           
+            // поиск по почту
+            email_1.addEventListener('input', (e) => {
+                const dataSearch = this.data.filter(item => {
+                    if (item.email.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1) {
+                        return item;
+                    }
+                });
+                e.target.value.length 
+                    ? this.filterInput(dataSearch, email_1.nextSibling.nextSibling, companyName, name, email_1, website_1) 
+                    : this.filterInput([], email_1.nextSibling.nextSibling, companyName, name, email_1, website_1);
+            });
+           
+            // поиск по названию website
+            website_1.addEventListener('input', (e) => {
+                const dataSearch = this.data.filter(item => {
+                    if (item.website.toLowerCase().indexOf(e.target.value.toLowerCase()) !== -1) {
+                        return item;
+                    }
+                });
+                
+                e.target.value.length 
+                    ? this.filterInput(dataSearch, website_1.nextSibling.nextSibling, companyName, name, email_1, website_1) 
+                    : this.filterInput([], website_1.nextSibling.nextSibling, companyName, name, email_1, website_1);
+            });
+
+        }
+
+        filterInput(dataArr, ul, companyName, name, email_1, website_1) {
+            let idCard;
+            ul.innerHTML = '';
+            if (dataArr.length > 0) {
+                dataArr.map((el) => {
+                    ul.innerHTML += `
+                        <li id="filter-${el.id - 1}">
+                            <p>${el.company.name}</p>
+                            <p>${el.username}</p>
+                            <p>${el.website}</p>
+                            <p>${el.email}</p>
+                        </li>
+                    `;
+                });
+            }
+
+            ul.addEventListener('click', (e) => {
+                const contactID = e.target.parentNode.id.split('-');
+                const contact = this.data[contactID[1]];
+
+                companyName.value = contact.company.name;
+                name.value = contact.username;
+                email_1.value = contact.email;
+                website_1.value = contact.website;
+
+                idCard = contact.id - 1;
+
+                ul.innerHTML = '';
+
+            });
+
+            document.querySelector('#search-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                this.rezultBlock.innerHTML = this.cardContact(this.data[idCard]);
+                companyName.value = '';
+                name.value = '';
+                email_1.value = '';
+                website_1.value = '';
+            }, false)
         }
 
         sortAlphabet(nodeCh, nodeNo, localKeyCh, localKeyNo) {
