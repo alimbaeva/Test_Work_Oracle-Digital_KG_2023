@@ -10,6 +10,10 @@
     margin: 0 auto;
 }
 
+.hiden {
+    display: none;
+}
+
 header {
     height: 100px;
     background-color: #C39BD3;
@@ -177,4 +181,30 @@ footer {
 
 .footer a {
     margin: 1rem;
+}
+
+.modal-contact {
+    width: 100%;
+    height: 100%;
+    background-color: #0000007d;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.modal-contact .item {
+    width: 30%;
+    padding: 1.5rem;
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+.modal-contact p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
 }

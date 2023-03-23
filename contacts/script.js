@@ -40,8 +40,6 @@
 }
 
 {
-    // const contactData = localStorage.getItem('ContactObject');
-
     class Contacts {
         constructor () {
             this.data = JSON.parse(localStorage.getItem('ContactObject'));
@@ -51,16 +49,15 @@
         showContacts() {
             if (this.data) {
                 this.data.map((el) => {
-                    console.log(el);
                     this.rezultBlock.innerHTML += `
-                    <div class="contact-item" data-id="${el.id - 1}">
+                    <div class="contact-item" data-id="${el.id}">
                         <div class="text">
                             <p>Company name: <b>${el.company.name}</b></p>
                             <p>Name: <b>${el.name}</b></p>
                             <p>Website: <b>${el.website}</b></p>
                             <p>City: <b>${el.website}</b></p>
                             <p>Phone: <b>${el.phone}</b></p>
-                            <button>To learn more</button>
+                            <button id="more-${el.id - 1}">To learn more</button>
                         </div>
                         <div class="btn-block">
                             <button>
@@ -75,9 +72,54 @@
                             </button>
                         </div>
                     </div>
-                    `
+                    `;
+                });
+
+                this.rezultBlock.addEventListener('click', (e) => {
+                    const idArray = e.target.id.split('-');
+                    if (idArray[0] === 'more') {
+                        this.modalInfo(idArray[1]);
+                    }
                 })
             }
+        }
+
+        modalInfo(id) {
+            const contact =  this.data[id];
+            const modalDiv = document.querySelector('.modal-contact');
+            modalDiv.classList.remove('hiden');
+            modalDiv.innerHTML = `
+            <div class="item">
+                <div class="text">
+                    <b>Company name:</b>
+                    <p>${contact.company.name}</p>
+                    <b>Name:</b>
+                    <p>${contact.name}</p>
+                    <b>User Name:</b>
+                    <p>${contact.username}</p>
+                    <b>Address:</b>
+                    <p>${contact.address.city}, ${contact.address.street}, ${contact.address.suite}, ${contact.address.zipcode}</p>
+                    <b>Website:</b>
+                    <p>${contact.website}</p>
+                    <b>Phone:</b>
+                    <p>${contact.phone}</p>
+                    <b>About company:</b>
+                    <p>${contact.company.bs}, ${contact.company.catchPhrase}</p>
+                </div>
+                <div class="map">
+                    <p>Карта</p>
+                </div>
+            </div>
+            `;
+
+            modalDiv.addEventListener('click', (e) =>  {
+                const targetEl = e.target.parentNode;
+                if (targetEl.classList.contains('text') || targetEl.classList.contains('item') || targetEl.classList.contains('map')) {
+                    return;
+                } else {
+                    modalDiv.classList.add('hiden');
+                }
+            });
         }
     }
 
