@@ -193,7 +193,8 @@ footer {
     left: 0;
 }
 
-.modal-contact .item {
+.modal-contact .item,
+.modal-contact form {
     width: 30%;
     padding: 1.5rem;
     background-color: #FFFFFF;
@@ -202,6 +203,9 @@ footer {
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 5px;
+}
+.modal-contact form {
+    color: #000000;
 }
 
 .modal-contact p {

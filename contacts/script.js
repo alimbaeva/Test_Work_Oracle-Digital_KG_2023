@@ -44,9 +44,10 @@
         constructor () {
             this.data = JSON.parse(localStorage.getItem('ContactObject'));
             this.rezultBlock = document.querySelector('.result');
+            this.modalDiv = document.querySelector('.modal-contact');
         }
 
-        showContacts() {
+        showContacts() { // выводит весь список контактов
             if (this.data) {
                 this.data.map((el) => {
                     this.rezultBlock.innerHTML += `
@@ -60,8 +61,8 @@
                             <button id="more-${el.id - 1}">To learn more</button>
                         </div>
                         <div class="btn-block">
-                            <button>
-                                <svg class="">
+                            <button id="change-${el.id - 1}-btn">
+                                <svg id="change-${el.id - 1}-svg">
                                     <use xlink:href='./assets/icon/sprite.svg#pen'></use>
                                 </svg>
                             </button>
@@ -77,18 +78,152 @@
 
                 this.rezultBlock.addEventListener('click', (e) => {
                     const idArray = e.target.id.split('-');
-                    if (idArray[0] === 'more') {
-                        this.modalInfo(idArray[1]);
-                    }
-                })
+                    if (idArray[0] === 'more') this.modalInfo(idArray[1]);
+                    if (idArray[0] === 'change') this.changeContact(idArray[1]);
+                });
             }
         }
 
-        modalInfo(id) {
+        changeContact(id) { // при клике на иконку ручку
             const contact =  this.data[id];
-            const modalDiv = document.querySelector('.modal-contact');
-            modalDiv.classList.remove('hiden');
-            modalDiv.innerHTML = `
+            this.modalDiv.classList.remove('hiden');
+            this.modalDiv.innerHTML = `
+            <form class="change-contact">
+                <label class="change-contact" for="company-name">
+                    Company name:
+                    <input type="text" id="company-name" name="company-name">
+                </label>
+                <label class="change-contact" for="name-1">
+                    Name:
+                    <input type="text" id="name-1" name="name-1">
+                </label>
+                <label class="change-contact" for="user-name">
+                    User Name:
+                    <input type="text" id="user-name" name="user-name">
+                </label>
+                <label class="change-contact" for="city">
+                    City:
+                    <input type="text" id="city" name="city">
+                </label>
+                <label class="change-contact" for="street">
+                    Street:
+                    <input type="text" id="street">
+                </label>
+                <label class="change-contact" for="suite">
+                    Suite:
+                    <input type="text" id="suite" name="suite">
+                </label>
+                <label class="change-contact" for="zipcode">
+                    Zipcode:
+                    <input type="text" id="zipcode" name="zipcode">
+                </label>
+                <label class="change-contact" for="geo-lat">
+                    Geo-lat:
+                    <input type="text" id="geo-lat" name="geo-lat">
+                </label>
+                <label class="change-contact" for="geo-lng">
+                    Geo-lng:
+                    <input type="text" id="geo-lng" name="geo-lng">
+                </label>
+                <label class="change-contact" for="website">
+                    Website:
+                    <input type="text" id="website" name="website">
+                </label>
+                <label class="change-contact" for="email">
+                    Website:
+                    <input type="text" id="email" name="email">
+                </label>
+                <label class="change-contact" for="phone">
+                    Phone:
+                    <input type="text" id="phone" name="phone">
+                </label>
+                <label class="change-contact" for="bs">
+                    Company BS:
+                    <input type="text" id="bs" name="bs">
+                </label>
+                <label class="change-contact" for="catchPhrase">
+                    Company catch phrase:
+                    <input type="text" id="catchPhrase" name="catchPhrase">
+                </label>
+                <button id="change" type="submit">Change</button>
+            </form>
+            `;
+            const company_name= document.querySelector('#company-name');
+            const name_1= document.querySelector('#name-1');
+            const user_name = document.querySelector('#user-name');
+            const city = document.querySelector('#city');
+            const street= document.querySelector('#street');
+            const suite = document.querySelector('#suite');
+            const zipcode = document.querySelector('#zipcode');
+            const website = document.querySelector('#website');
+            const phone = document.querySelector('#phone');
+            const bs = document.querySelector('#bs');
+            const catchPhrase = document.querySelector('#catchPhrase');
+            const email = document.querySelector('#email');
+            const geo_lat = document.querySelector('#geo-lat');
+            const geo_lng = document.querySelector('#geo-lng');
+
+            name_1.value = contact.name;
+            company_name.value = contact.company.name;
+            user_name.value = contact.username;
+            city.value = contact.address.city;
+            street.value = contact.address.street;
+            suite.value = contact.address.suite;
+            zipcode.value = contact.address.zipcode;
+            website.value = contact.website;
+            phone.value = contact.phone;
+            bs.value = contact.company.bs;
+            catchPhrase.value = contact.company.catchPhrase;
+            email.value = contact.email;
+            geo_lat.value = contact.address.geo.lat;
+            geo_lng.value = contact.address.geo.lng;
+
+            this.modalDiv.addEventListener('click', (e) =>  {
+                const targetEl = e.target.parentNode;
+                this.hidenModal(targetEl);
+            });
+
+            // меняет данные
+            document.querySelector('#change').addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const itemContact = {
+                    address: {
+                        city: city.value,
+                        street: street.value,
+                        suite: suite.value,
+                        zipcode: zipcode.value,
+                        geo: {
+                            lat: geo_lat.value,
+                            lng: geo_lng.value,
+                        }
+                    },
+                    company: {
+                        bs: bs.value,
+                        catchPhrase: catchPhrase.value,
+                        name: company_name.value,
+                    },
+                    email: email.value,
+                    id: +id + 1,
+                    name: name_1.value,
+                    phone: phone.value,
+                    username : user_name.value,
+                    website: website.value,
+                };
+
+                this.data.splice(id, 1, itemContact);
+                localStorage.setItem('ContactObject', JSON.stringify(this.data));
+                
+                this.modalDiv.classList.add('hiden');
+                location.reload();
+            })
+
+        }
+
+        modalInfo(id) { // выводит на модальное окно подробную информацию о контакте
+            const contact =  this.data[id];
+            this.modalDiv.classList.remove('hiden');
+            this.modalDiv.innerHTML = `
             <div class="item">
                 <div class="text">
                     <b>Company name:</b>
@@ -112,18 +247,22 @@
             </div>
             `;
 
-            modalDiv.addEventListener('click', (e) =>  {
+            this.modalDiv.addEventListener('click', (e) =>  {
                 const targetEl = e.target.parentNode;
-                if (targetEl.classList.contains('text') || targetEl.classList.contains('item') || targetEl.classList.contains('map')) {
-                    return;
-                } else {
-                    modalDiv.classList.add('hiden');
-                }
+                this.hidenModal(targetEl);
             });
+        }
+
+        hidenModal(targetEl) { // скрывает модальное окно
+            if (targetEl.classList.contains('change-contact') || targetEl.classList.contains('text') || targetEl.classList.contains('item') || targetEl.classList.contains('map')) {
+                return;
+            } else {
+                this.modalDiv.classList.add('hiden');
+            }
         }
     }
 
     const callContacts = new Contacts();
 
-    console.log(callContacts.showContacts());
+    callContacts.showContacts();
 }
