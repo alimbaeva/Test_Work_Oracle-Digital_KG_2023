@@ -29,6 +29,8 @@
         if (XML.readyState === XMLHttpRequest.DONE) {
           if (XML.status === 200) {
               localStorage.setItem('ContactObject', XML.responseText);
+              if (localStorage.getItem('choseSortA_Z')) localStorage.removeItem('choseSortA_Z');
+              if (localStorage.getItem('choseSortZ_A')) localStorage.removeItem('choseSortZ_A');
           } else {
             throw Error(`There was a problem with the request. ${XML.status} ${XML.statusText}`);
           }
@@ -38,7 +40,7 @@
       }
   };
 }
-
+// вывод контактов и взаимодействия ими
 {
     class Contacts {
         constructor () {
@@ -260,9 +262,84 @@
                 this.modalDiv.classList.add('hiden');
             }
         }
+    };
+
+    class Filter extends Contacts {
+        constructor(data, rezultBlock, modalDiv) {
+            super(data, rezultBlock, modalDiv);
+        }
+
+        redrawFilter() {
+            const filter = document.querySelector('.filter');
+            filter.innerHTML += `
+                <div class="sort">
+                    <p class="title-sort">Sort contacts:</p>
+                    <div>
+                        <p>от A-Z</p> 
+                        <span id="a_z">
+                            <svg class="icon ${localStorage.getItem('choseSortA_Z') === 'true' ? '' : 'hiden'}">
+                                <use xlink:href='./assets/icon/sprite.svg#check-mark'></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <div>
+                        <p>от Z-A </p>
+                        <span id="z_a">
+                            <svg class="icon ${localStorage.getItem('choseSortZ_A') === 'true' ? '' : 'hiden'}">
+                                <use xlink:href='./assets/icon/sprite.svg#check-mark'></use>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            `;
+        }
+
+        sortContacts() { // сортировка
+            const a_z = document.querySelector('#a_z');
+            const z_a = document.querySelector('#z_a');
+            const choseSortZ_A = document.querySelector('#z_a .icon');
+            const choseSortA_Z = document.querySelector('#a_z .icon');
+
+            // сортировка от A до Z
+            a_z.addEventListener('click', () => {
+                this.sortAlphabet(choseSortA_Z, choseSortZ_A, 'choseSortA_Z', 'choseSortZ_A');
+            });
+
+            // сортировка от Z до A
+            z_a.addEventListener('click', () => {
+                this.sortAlphabet(choseSortZ_A, choseSortA_Z, 'choseSortZ_A', 'choseSortA_Z');
+            });
+        }
+
+        sortAlphabet(nodeCh, nodeNo, localKeyCh, localKeyNo) {
+            if (!nodeNo.classList.contains('hiden')) nodeNo.classList.add('hiden')
+            nodeCh.classList.remove('hiden');
+            localStorage.setItem(localKeyNo, 'false');
+            localStorage.setItem(localKeyCh, 'true');
+            
+            this.data.sort((el1, el2) => {
+                if (localKeyCh === 'choseSortZ_A') {
+                    if (el1.company.name.toLowerCase() > el2.company.name.toLowerCase()) return -1;
+                    if (el1.company.name.toLowerCase() < el2.company.name.toLowerCase()) return 1;
+                } else {
+                    if (el1.company.name.toLowerCase() < el2.company.name.toLowerCase()) return -1;
+                    if (el1.company.name.toLowerCase() > el2.company.name.toLowerCase()) return 1;
+                }
+                return 0;
+            });
+            
+            localStorage.setItem('ContactObject', JSON.stringify(this.data));
+            
+            location.reload();
+        }
     }
 
-    const callContacts = new Contacts();
 
+    const callContacts = new Contacts();
+    const filter = new Filter();
+
+    
+    filter.redrawFilter();
+    filter.sortContacts();
     callContacts.showContacts();
 }
