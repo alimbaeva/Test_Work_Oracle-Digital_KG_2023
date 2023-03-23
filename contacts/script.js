@@ -261,7 +261,6 @@
         }
 
         showMap(lat, lng) { // показывает на карте (lat, lng - это долгота и широта)
-            console.log(lat, lng)
             this.forMap.classList.remove('hiden');
             this.forMap.innerHTML = `
                 <div id='map'></div>
