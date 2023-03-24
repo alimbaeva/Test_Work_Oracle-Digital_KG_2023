@@ -223,6 +223,7 @@ footer {
     top: 50%;
     transform: translate(-50%, -50%);
     border-radius: 5px;
+    scroll-behavior: auto;
 }
 
 .modal-contact .contact-item,
@@ -235,7 +236,15 @@ footer {
 }
 
 .modal-contact .change-form  {
+    height: 70%;
     color: #000000;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.modal-contact .change-form label {
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-contact p {
