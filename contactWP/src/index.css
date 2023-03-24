@@ -35,19 +35,19 @@ main {
 }
 
 .filter {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     position: relative;
 }
 
 .filter ul {
-    margin-bottom: 2rem;
+    margin-bottom: .5rem;
     padding: 0;
     list-style: none;
 }
 
 .filter li {
-    margin-bottom: 1rem;
+    margin-bottom: .8rem;
     display: flex;
     flex-wrap: wrap;
     cursor: pointer;
@@ -64,7 +64,7 @@ main {
 }
 
 .title-sort {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .sort svg {
@@ -74,8 +74,8 @@ main {
 }
 
 .sort span {
-    width: 25px;
-    height: 25px;
+    width: 22px;
+    height: 22px;
     margin-left: .8rem;
     display: flex;
     align-items: center;
@@ -92,30 +92,30 @@ main {
 }
 
 form {
-    width: 300px;
+    width: 270px;
     padding-right: 1rem;
     position: fixed;
-    left: 12%;
+    left: 8%;
 }
 
 .title-form {
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 form input {
     width: 100%;
-    padding: 8px;
+    padding: 5px;
     margin: .5rem 0;
-    font-size: 1.2rem;
+    font-size: 1rem;
     border-radius: 5px;
 }
 
 form button {
     width: 100%;
-    height: 40px;
-    margin-top: 2rem;
-    font-size: 1.2rem;
+    height: 35px;
+    margin-top: 1rem;
+    font-size: 1rem;
     text-align: center;
     background-color: #58D68D;
     color: #FFFFFF;
@@ -139,14 +139,14 @@ form button {
 }
 
 .text p {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    margin-bottom: .8rem;
 }
 
 .text button {
     color: #FFFFFF;
     background-color: #58D68D;
-    padding: .5rem 2rem;
+    padding: .3rem 2rem;
     border-radius: 5px;
     border-color: #58D68D;
     cursor: pointer;
@@ -160,8 +160,8 @@ form button {
 }
 
 .btn-block svg{
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     fill: #512E5F;
 }
 
@@ -248,8 +248,8 @@ footer {
 }
 
 .modal-contact p {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
 }
 
 @media screen and (max-width: 2090px) {
