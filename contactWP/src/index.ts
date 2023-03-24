@@ -300,6 +300,228 @@ modalInfo(id: number) { // выводит на модальное окно по�
     }
 };
 
-const callContacts = new Contacts();
+class Filter extends Contacts {
+    data : IContacts[];
+    rezultBlock: HTMLElement | null;
+    modalDiv: HTMLDivElement | null;
+    constructor() {
+        super();
+        this.data = JSON.parse(localStorage.getItem('ContactObject') as string);
+        this.rezultBlock = document.querySelector('.result');
+        this.modalDiv = document.querySelector('.for-contact');
+    }
 
+    redrawFilter() {
+        const filter = document.querySelector('.filter') as HTMLElement;
+        filter.innerHTML = `
+            <form>
+                <p class="title-form">Search</p>
+                <div>
+                    <label for="companyName">
+                        Company Name:
+                        <input type="text" id="companyName" name="companyName" placeholder="Company Name">
+                        <ul class="company-name">
+                        </ul>
+                    </label>
+                    <label for="name">
+                        User Name:
+                        <input type="text" id="name" name="name" placeholder="User Name">
+                        <ul class="name"></ul>
+                    </label>
+                    <label for="email-1">
+                        Email:
+                        <input type="text" id="email-1" name="email-1" placeholder="Email">
+                        <ul class="email"></ul>
+                    </label>
+                    <label for="website-1">
+                        Website:
+                        <input type="text" id="website-1" name="website-1" placeholder="Website">
+                        <ul class="website"></ul>
+                    </label>
+                </div>
+                <button id="search-btn" type="submit">search</button>
+            </form>
+            <div class="sort">
+                <p class="title-sort">Sort contacts:</p>
+                <div>
+                    <p>от A-Z</p> 
+                    <span id="a_z">
+                        <svg class="icon ${localStorage.getItem('choseSortA_Z') === 'true' ? '' : 'hiden'}">
+                            <use xlink:href='./assets/icon/sprite.svg#check-mark'></use>
+                        </svg>
+                    </span>
+                </div>
+                <div>
+                    <p>от Z-A </p>
+                    <span id="z_a">
+                        <svg class="icon ${localStorage.getItem('choseSortZ_A') === 'true' ? '' : 'hiden'}">
+                            <use xlink:href='./assets/icon/sprite.svg#check-mark'></use>
+                        </svg>
+                    </span>
+                </div>
+            </div>
+        `;
+    }
+
+    sortContacts() { // сортировка
+        const a_z = document.querySelector('#a_z') as HTMLSpanElement;
+        const z_a = document.querySelector('#z_a') as HTMLSpanElement;
+        const choseSortZ_A = document.querySelector('#z_a .icon');
+        const choseSortA_Z = document.querySelector('#a_z .icon');
+
+        const companyName = document.querySelector('#companyName') as HTMLInputElement;
+        const name = document.querySelector('#name') as HTMLInputElement;
+        const email_1 = document.querySelector('#email-1') as HTMLInputElement;
+        const website_1 = document.querySelector('#website-1') as HTMLInputElement;
+
+        // сортировка от A до Z
+        a_z.addEventListener('click', () => {
+            this.sortAlphabet(choseSortA_Z, choseSortZ_A, 'choseSortA_Z', 'choseSortZ_A');
+        });
+
+        // сортировка от Z до A
+        z_a.addEventListener('click', () => {
+            this.sortAlphabet(choseSortZ_A, choseSortA_Z, 'choseSortZ_A', 'choseSortA_Z');
+        });
+
+         // поиск по имени компании
+        companyName.addEventListener('input', (e) => {
+            const dataSearch = this.data.filter(item => {
+                if (item.company.name.toLowerCase().indexOf((e.target as HTMLInputElement).value.toLowerCase()) !== -1) {
+                    return item;
+                }
+            });
+            const ul = (companyName.nextSibling as HTMLTextAreaElement).nextSibling as HTMLUListElement;
+            (e.target as HTMLInputElement).value.length 
+                ? this.filterInput(dataSearch, ul, companyName, name, email_1, website_1) 
+                : this.filterInput([], ul, companyName, name, email_1, website_1);
+        });
+
+        // поиск по имени человека
+        name.addEventListener('input', (e) => {
+            const dataSearch = this.data.filter(item => {
+                if (item.username.toLowerCase().indexOf((e.target as HTMLInputElement).value.toLowerCase()) !== -1) {
+                    return item;
+                }
+            });
+            const ul = (companyName.nextSibling as HTMLTextAreaElement).nextSibling as HTMLUListElement;
+            (e.target as HTMLInputElement).value.length 
+                ? this.filterInput(dataSearch, ul, companyName, name, email_1, website_1) 
+                : this.filterInput([], ul, companyName, name, email_1, website_1);
+        });
+       
+        // поиск по почту
+        email_1.addEventListener('input', (e) => {
+            const dataSearch = this.data.filter(item => {
+                if (item.email.toLowerCase().indexOf((e.target as HTMLInputElement).value.toLowerCase()) !== -1) {
+                    return item;
+                }
+            });
+            const ul = (companyName.nextSibling as HTMLTextAreaElement).nextSibling as HTMLUListElement;
+            (e.target as HTMLInputElement).value.length 
+                ? this.filterInput(dataSearch, ul, companyName, name, email_1, website_1) 
+                : this.filterInput([], ul, companyName, name, email_1, website_1);
+        });
+       
+        // поиск по названию website
+        website_1.addEventListener('input', (e) => {
+            const dataSearch = this.data.filter(item => {
+                if (item.website.toLowerCase().indexOf((e.target as HTMLInputElement).value.toLowerCase()) !== -1) {
+                    return item;
+                }
+            });
+            const ul = (companyName.nextSibling as HTMLTextAreaElement).nextSibling as HTMLUListElement;
+            (e.target as HTMLInputElement).value.length 
+                ? this.filterInput(dataSearch, ul, companyName, name, email_1, website_1) 
+                : this.filterInput([], ul, companyName, name, email_1, website_1);
+        });
+
+    }
+
+    filterInput(
+        dataArr: IContacts[], 
+        ul: HTMLUListElement, 
+        companyName: HTMLInputElement, 
+        name: HTMLInputElement, 
+        email_1: HTMLInputElement, 
+        website_1: HTMLInputElement
+        ) {
+        let idCard: number;
+        ul.innerHTML = '';
+        if (dataArr.length > 0) {
+            dataArr.map((el) => {
+                ul.innerHTML += `
+                    <li id="filter-${el.id - 1}">
+                        <p>${el.company.name}</p>
+                        <p>${el.username}</p>
+                        <p>${el.website}</p>
+                        <p>${el.email}</p>
+                    </li>
+                `;
+            });
+        }
+
+        ul.addEventListener('click', (e) => {
+            const target_El = e.target as HTMLElement;
+            if (!target_El) return;
+            const contactID = ( <HTMLElement>target_El.parentNode).id.split('-') as [string, number];
+            const contact = this.data[contactID[1]];
+
+            companyName.value = contact.company.name;
+            name.value = contact.username;
+            email_1.value = contact.email;
+            website_1.value = contact.website;
+
+            idCard = contact.id - 1;
+
+            ul.innerHTML = '';
+
+        });
+
+        (<HTMLButtonElement>document.querySelector('#search-btn')).addEventListener('click', (e) => {
+            e.preventDefault();
+            if (!this.rezultBlock) return;
+            this.rezultBlock.innerHTML = this.cardContact(this.data[idCard]);
+            companyName.value = '';
+            name.value = '';
+            email_1.value = '';
+            website_1.value = '';
+        }, false)
+    }
+
+    sortAlphabet(
+        nodeCh: Element | null, 
+        nodeNo: Element | null, 
+        localKeyCh: string, 
+        localKeyNo: string
+        ) {
+        if (!nodeNo) return;
+        if (!nodeNo.classList.contains('hiden')) nodeNo.classList.add('hiden')
+        nodeCh!.classList.remove('hiden');
+        localStorage.setItem(localKeyNo, 'false');
+        localStorage.setItem(localKeyCh, 'true');
+        
+        this.data.sort((el1, el2) => {
+            if (localKeyCh === 'choseSortZ_A') {
+                if (el1.company.name.toLowerCase() > el2.company.name.toLowerCase()) return -1;
+                if (el1.company.name.toLowerCase() < el2.company.name.toLowerCase()) return 1;
+            } else {
+                if (el1.company.name.toLowerCase() < el2.company.name.toLowerCase()) return -1;
+                if (el1.company.name.toLowerCase() > el2.company.name.toLowerCase()) return 1;
+            }
+            return 0;
+        });
+        
+        localStorage.setItem('ContactObject', JSON.stringify(this.data));
+        
+        location.reload();
+    }
+}
+
+
+const callContacts = new Contacts();
+const filter = new Filter();
+
+filter.redrawFilter();
+filter.sortContacts();
 callContacts.showContacts();
