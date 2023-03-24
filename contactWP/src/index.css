@@ -1,0 +1,391 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.hiden {
+    display: none;
+}
+
+header {
+    height: 100px;
+    background-color: #C39BD3;
+}
+
+.header {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+main {
+    min-height: 900px;
+}
+
+.filter {
+    font-size: 1.2rem;
+    font-weight: 700;
+    position: relative;
+}
+
+.filter ul {
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.filter li {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+}
+
+.filter li p {
+    margin-right: 5px;
+}
+
+.sort {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.title-sort {
+    font-size: 1.5rem;
+}
+
+.sort svg {
+    width: 15px;
+    height: 15px;
+    fill: #58D68D;
+}
+
+.sort span {
+    width: 25px;
+    height: 25px;
+    margin-left: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.sort div {
+  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+form {
+    width: 300px;
+    padding-right: 1rem;
+    position: fixed;
+    left: 12%;
+}
+
+.title-form {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+form input {
+    width: 100%;
+    padding: 8px;
+    margin: .5rem 0;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    height: 40px;
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: #58D68D;
+    color: #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.result {
+    min-height: 700px;
+    margin-bottom: 2rem;
+}
+
+.contact-item {
+    margin-bottom: .5rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 6px 6px hsl(0deg 0% 0% / 0.3);
+    border-radius: 5px;
+}
+
+.text p {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.text button {
+    color: #FFFFFF;
+    background-color: #58D68D;
+    padding: .5rem 2rem;
+    border-radius: 5px;
+    border-color: #58D68D;
+    cursor: pointer;
+}
+
+.btn-block {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.btn-block svg{
+    width: 25px;
+    height: 25px;
+    fill: #512E5F;
+}
+
+.btn-block button {
+    margin: 2rem 0;
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+}
+
+footer {
+    padding: 2rem 0;
+    background-color: #512E5F;
+}
+
+.footer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer svg {
+    fill: #FFFFFF;
+    width: 30px;
+    height: 30px;
+}
+
+.footer p {
+    margin-bottom: 1rem;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+}
+
+.footer a {
+    margin: 1rem;
+}
+
+.modal-contact {
+    width: 100%;
+    height: 100%;
+    background-color: #0000007d;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.modal-contact .item,
+.modal-contact #map,
+.modal-contact .change-form ,
+.modal-contact .contact-item {
+    width: 30%;
+    padding: 1.5rem;
+    background-color: #FFFFFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    scroll-behavior: auto;
+}
+
+.modal-contact .contact-item,
+.modal-contact #map  {
+    width: 50%;
+}
+
+.modal-contact #map  {
+    height: 50%;
+}
+
+.modal-contact .change-form  {
+    height: 70%;
+    color: #000000;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.modal-contact .change-form label {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-contact p {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media screen and (max-width: 2090px) {
+    form {
+        left: 5%;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+
+    .filter {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .title-form {
+        font-size: 1rem;
+    }
+
+    form {
+        width: 100%;
+        margin-top: 1rem;
+        position: relative;
+        left: 0;
+    }
+
+    form div {
+        display: flex;
+    }
+
+    form label {
+        font-size: 1rem;
+        position: relative;
+    }
+
+    
+    form input {
+        width: 90%;
+        padding: 3px;
+        margin: 0 0;
+        font-size: 1rem;
+    }
+
+    .filter ul {
+        margin: 0;
+        padding: .5rem;
+        position: absolute;
+        z-index: 1;
+        background-color: #FFFFFF;
+    }
+
+    form button {
+        width: 20%;
+        height: 25px;
+        margin: 1rem 0 0 78%;
+        font-size: .8rem;
+    }
+
+    
+    .sort {
+        margin: 1rem 0;
+    }
+
+    .title-sort {
+        font-size: 1.2rem;
+    }
+
+    .sort p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+
+    form input {
+        width: 95%;
+    }
+
+    .modal-contact .item,
+    .modal-contact .change-form ,
+    .modal-contact .contact-item {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .text p {
+        font-size: .8rem;
+        margin-bottom: .8rem;
+    }
+    
+    .text button {
+        padding: .2rem .4rem;
+    }
+
+    .btn-block svg{
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    form div {
+        flex-wrap: wrap;
+    }
+
+    form label {
+        width: 100%;
+    }
+
+    
+    form input {
+        width: 100%;
+        padding: 3px;
+        margin-bottom: .8rem;
+        font-size: .8rem;
+    }
+
+    .filter ul {
+        padding: 0;
+    }
+
+    
+    .modal-contact .item,
+    .modal-contact #map,
+    .modal-contact .change-form ,
+    .modal-contact .contact-item {
+        width: 80%;
+        padding: .5rem;
+    }
+
+    .modal-contact p {
+        font-size: 1rem;
+        margin-bottom: .5rem;
+    }
+}

@@ -1,0 +1,51 @@
+{
+    // "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint",
+                "import"
+            ],
+    "extends": [
+        "airbnb-typescript/base",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "project": "./tsconfig.json",
+        // "tsconfigRootDir": "__dirname",
+        "sourceType": "module"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "no-plusplus": "off",
+        "no-console": "warn",
+        "@typescript-eslint/no-explicit-any": "error",
+        // "max-len": ["warn", {"code": 160}],
+        "indent": ["warn", 2, {
+            "SwitchCase": 1
+        }],
+        "@typescript-eslint/indent": ["warn", 2, {
+            "SwitchCase": 1
+        }],
+        "import/prefer-default-export": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+              "js": "never",
+              "jsx": "never",
+              "ts": "never",
+              "tsx": "never"
+            }
+         ],
+        "no-param-reassign": ["error", {
+            "props": false
+        }],
+        "class-methods-use-this": "off"
+    }
+}

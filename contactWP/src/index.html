@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts book</title>
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+    <script defer src="index.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container header">
+            <h1>Contact book</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="filter">
+                <form>
+                    <p class="title-form">Search</p>
+                    <div>
+                        <label for="companyName">
+                            Company Name:
+                            <input type="text" id="companyName" name="companyName" placeholder="Company Name">
+                            <ul class="company-name">
+                            </ul>
+                        </label>
+                        <label for="name">
+                            User Name:
+                            <input type="text" id="name" name="name" placeholder="User Name">
+                            <ul class="name"></ul>
+                        </label>
+                        <label for="email-1">
+                            Email:
+                            <input type="text" id="email-1" name="email-1" placeholder="Email">
+                            <ul class="email"></ul>
+                        </label>
+                        <label for="website-1">
+                            Website:
+                            <input type="text" id="website-1" name="website-1" placeholder="Website">
+                            <ul class="website"></ul>
+                        </label>
+                    </div>
+                    <button id="search-btn" type="submit">search</button>
+                </form>
+            </section>
+            <section class="result">
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container footer">
+            <p>Алымбаева Асель</p>
+            <div>
+                <a href="https://github.com/alimbaeva" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon">
+                        <use xlink:href='./assets/icon/sprite.svg#github'></use>
+                    </svg>
+                </a>
+                <a href="https://cv-asel-alymbaeva.netlify.app/" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon">
+                        <use xlink:href='./assets/icon/sprite.svg#CV'></use>
+                    </svg>
+                </a>
+                <a href="https://github.com/alimbaeva/Test_Work_Oracle-Digital_KG_2023/tree/main/contacts" target="_blank" rel="noopener noreferrer">
+                    <svg class="icon">
+                        <use xlink:href='./assets/icon/sprite.svg#folder'></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+    <div class="modal-contact for-contact hiden"></div>
+    <div class="modal-contact for-map hiden"></div>
+</body>
+</html>
