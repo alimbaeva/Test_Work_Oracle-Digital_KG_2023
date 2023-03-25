@@ -1,6 +1,6 @@
 import './index.css';
 import mapboxgl from 'mapbox-gl';
-import { IContacts } from './types';
+import { IContacts, IGeojson } from './types';
 
 const PATH = 'https://jsonplaceholder.typicode.com/users';
 
@@ -77,15 +77,6 @@ class Contacts {
                 C147.097,447.637,146.36,447.193,145.734,446.572z"/>
               </svg>
             </button>
-            <button id="map-${el.id - 1}-btn">
-              <svg id="map-${el.id - 1}-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.412 46.412">
-              <path d="M39.652,16.446C39.652,7.363,32.289,0,23.206,0C14.124,0,6.761,7.363,6.761,16.446c0,1.775,0.285,3.484,0.806,5.086h0
-              c0,0,1.384,6.212,15.536,24.742c8.103-10.611,12.018-17.178,13.885-20.857C38.67,22.836,39.652,19.756,39.652,16.446z
-              M23.024,27.044c-5.752,0-10.416-4.663-10.416-10.416c0-5.752,4.664-10.415,10.416-10.415s10.416,4.663,10.416,10.415
-              C33.439,22.381,28.776,27.044,23.024,27.044z"/>
-              <path d="M23.206,46.412c-0.036-0.047-0.07-0.092-0.105-0.139c-0.036,0.047-0.07,0.091-0.106,0.139H23.206z"/>
-              </svg>
-            </button>
           </div>
         </div>
         `
@@ -103,7 +94,6 @@ class Contacts {
         const idArray = (e.target as HTMLDivElement).id.split('-') as any[];
         if (idArray[0] === 'more') this.modalInfo(idArray[1]);
         if (idArray[0] === 'change') this.changeContact(idArray[1]);
-        // if (idArray[0] === 'map') this.showMap(this.data[idArray[1]].address.geo.lat, this.data[idArray[1]].address.geo.lng);
       });
     } else {
       if (this.rezultBlock) {
@@ -275,50 +265,7 @@ class Contacts {
         });
       }
   }
-  showMap(lat: number, lng: number) { // показывает на карте (lat, lng - это долгота и широта)
-    if (this.forMap) {
-      this.forMap.classList.remove('hiden');
-      this.forMap.innerHTML = `
-        <div id='map'></div>
-      `;
-    }
-    // L.mapbox.accessToken = 'pk.eyJ1IjoibGFkeTFzdCIsImEiOiJjbGV5N2V3ZjcwMjhuM3hzMnZkMjR0b3Z3In0.6214Q3EwVqdFQqy4A6PxEw';
-    // const map = L.mapbox.map('map')
-    //     .setView([lng, lat], 3)
-    //     .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
-    
-    // L.marker([lng, lat], {
-    //     icon: L.mapbox.marker.icon({
-    //         'marker-size': 'large',
-    //         'marker-color': '#512E5F'
-    //     })
-    // }).addTo(map);
-    mapboxgl.accessToken = 'pk.eyJ1IjoibGFkeTFzdCIsImEiOiJjbGV5N2V3ZjcwMjhuM3hzMnZkMjR0b3Z3In0.6214Q3EwVqdFQqy4A6PxEw';
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [lng, lat],
-      zoom: 9,
-    });
 
-    const marker = new mapboxgl.Marker({
-      color: "#FFFFFF",
-      draggable: true
-      }).setLngLat([30.5, 50.5])
-      .addTo(map);
-
-    if (this.forMap) {
-      this.forMap.addEventListener('click', (e) =>  {
-        const targetEl = e.target as HTMLDivElement;
-        if (targetEl.id === 'map') {
-          return;
-        } else {
-          this.forMap!.innerHTML = '';
-          this.forMap!.classList.add('hiden');
-        }
-      });
-    }
-  }
   hidenModal(targetEl: HTMLElement | null) { // скрывает модальное окно
     if (targetEl) {
       if (targetEl.classList.contains('change-contact') || targetEl.classList.contains('text') || targetEl.classList.contains('item') || targetEl.classList.contains('map')) {

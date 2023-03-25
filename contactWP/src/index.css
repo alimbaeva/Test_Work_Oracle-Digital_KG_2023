@@ -226,14 +226,29 @@ footer {
     scroll-behavior: auto;
 }
 
-.modal-contact .contact-item,
-.modal-contact #map  {
-    width: 50%;
+.modal-contact .contact-item {
+    width: 60%;
 }
 
 .modal-contact #map  {
-    height: 50%;
+    height: 70%;
+    width: 70%;
+    padding: 0;
 }
+
+.modal-contact #map svg {
+    z-index: 1;
+}
+
+.modal-contact #map .marker {
+    transform: none;
+    background-color: red;
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
 
 .modal-contact .change-form  {
     height: 70%;
