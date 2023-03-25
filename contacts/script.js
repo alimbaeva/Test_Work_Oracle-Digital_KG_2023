@@ -91,7 +91,9 @@
                     if (idArray[0] === 'change') this.changeContact(idArray[1]);
                     if (idArray[0] === 'map') this.showMap(this.data[idArray[1]].address.geo.lat, this.data[idArray[1]].address.geo.lng);
                 });
-            }
+            } else {
+                this.rezultBlock.innerHTML = `<h4>Что то пошло не так, поробуйте перезагрузить, еще раз. Просим прощения за причененное не удобства.</h4>`;
+              }
         }
 
         changeContact(id) { // при клике на иконку ручку
